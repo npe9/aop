@@ -1,4 +1,3 @@
-
 	father(terach,abraham).			male(terach).
 	father(terach,nachor).			male(abraham).
 	father(terach,haran).			male(nachor).
