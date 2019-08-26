@@ -2,7 +2,7 @@
  /* Play framework  */
 
      play(Game) :- 
-	initialise(Game,Position,Player), 
+	initialize(Game,Position,Player), 
 	display_game(Position,Player),
 	play(Position,Player,Result).
 
@@ -24,6 +24,13 @@
 	nl, write(Move), nl.
      choose_move(Position,opponent,Move) :- 
 	nl, writeln(['please make move']), read(Move), legal(Move).
+
+    evaluate_and_choose([Move|Moves],Position,D,Alpha,Beta,Move1,BestMove) :- 
+	move(Move,Position,Position1),
+        alpha_beta(D,Position1,Alpha,Beta,MoveX,Value),
+        Value1 is -Value,   
+        cutoff(Move,Value1,D,Alpha,Beta,Moves,Position,Move1,BestMove).
+     evaluate_and_choose([],Position,D,Alpha,Beta,Move,(Move,Alpha)).
 
      alpha_beta(0,Position,Alpha,Beta,Move,Value) :- 
 	value(Position,Value).

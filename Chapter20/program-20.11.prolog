@@ -10,7 +10,7 @@
         alpha_beta(D,Position1,Alpha,Beta,MoveX,Value),
         Value1 is -Value,   
         cutoff(Move,Value1,D,Alpha,Beta,Moves,Position,Move1,BestMove).
-     evaluate_and_choose([],Position,D,Alpha,Beta,Move,(Move,A)).
+     evaluate_and_choose([],Position,D,Alpha,Beta,Move,(Move,Alpha)).
 
      alpha_beta(0,Position,Alpha,Beta,Move,Value) :- 
 	value(Position,Value).
