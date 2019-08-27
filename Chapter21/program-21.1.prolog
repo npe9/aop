@@ -2,16 +2,16 @@ mastermind(Code) :-
     cleanup, guess(Code), check(Code), announce.
 
 guess(Code) :-
-    Code = [X1,X2,X3], selects(Code,[1,2,3,4]).
+    Code = [X1,X2,X3,X4], selects(Code,[1,2,3,4,5,6,7,8,9,0]).
 
 /*  Verify the proposed guess    */
 
 check(Guess) :-
-    not inconsistent(Guess), ask(Guess).
+    not(inconsistent(Guess)), ask(Guess).
 
 inconsistent(Guess) :-
     query(OldGuess,Bulls,Cows),
-    not bulls_and_cows_match(OldGuess,Guess,Bulls,Cows).
+    not(bulls_and_cows_match(OldGuess,Guess,Bulls,Cows)).
 
 bulls_and_cows_match(OldGuess,Guess,Bulls,Cows) :-
     exact_matches(OldGuess,Guess,N1),
@@ -43,7 +43,7 @@ sensible(Bulls,Cows) :-
 
 /*    Bookkeeping     */
 
-cleanup :- abolish(query,3).
+cleanup :- abolish(query,3), dynamic(query/3).
 
 announce :-
     size_of(X,query(X,A,B),N),
@@ -60,10 +60,12 @@ select(X,[X|Xs],Xs).
 select(X,[Y|Ys],[Y|Zs]) :-
     select(X,Ys,Zs).
 
+/*
 length(Xs,N) :- length(Xs,0,N).
 length([X|Xs],Acc,N) :-
     Acc1 is Acc + 1,
     length(Xs,Acc1,N).
 length([],N,N).
+*/
 
 %   Program 21.1  Playing mastermind
