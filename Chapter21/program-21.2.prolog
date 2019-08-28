@@ -37,7 +37,7 @@ legal((K,N),Position) :- nth_member(N,Position,M), N =< M.
 nth_member(1,[X|Xs],X).
 nth_member(N,[X|Xs],Y) :- N > 1, N1 is N-1, nth_member(N1,Xs,Y).
 
-     choose_move(Ns,computer,Move) :- 
+     choose_move(Position,computer,Move) :- 
 	evaluate(Position,Safety,Sum),
 	decide_move(Safety,Position,Sum,Move).
 
@@ -45,7 +45,7 @@ evaluate(Position,Safety,Sum) :-
    nim_sum(Position,[],Sum), safety(Sum,Safety).
 
 safety(Sum,safe) :- zero(Sum), !.
-safety(Sum,unsafe) :- not zero(Sum), !.
+safety(Sum,unsafe) :- not(zero(Sum)), !.
 
 decide_move(safe,Position,Sum,(1,1)).  % The computer's arbitrary move
 decide_move(unsafe,Position,Sum,Move) :-
@@ -80,7 +80,7 @@ decide_move(unsafe,Position,Sum,Move) :-
 
 	 binary(1,[1]).
 	 binary(N,[D|Ds]) :-
-	     N > 1, D is N mod 2, N1 is N/2, binary(N1,Ds).
+	     N > 1, D is N mod 2, N1 is div(N,2), binary(N1,Ds).
 
  	decimal(Ds,N) :- decimal(Ds,0,1,N).
 	decimal([],N,T,N).
